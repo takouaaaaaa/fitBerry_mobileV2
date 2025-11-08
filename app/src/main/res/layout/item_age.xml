@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_age"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:text="18"
+    android:textSize="22sp"
+    android:textColor="@color/text_dark"
+    android:background="@drawable/bg_age_unselected"
+    android:layout_marginVertical="6dp"
+    android:fontFamily="sans-serif-medium" />

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Couleurs principales du thème FitBerry -->
+    <color name="purple_700">#512DA8</color>
+    <color name="purple_500">#CCB1F6</color>
+    <color name="purple_200">#D1C4E9</color>
+
+    <!-- Couleurs d'accent et de fond -->
+    <color name="accent_green">#CDE26D</color> <!-- Vert FitBerry -->
+    <color name="bg_white">#FFFFFF</color>
+    <color name="background_light">#F9F9F9</color>
+
+    <!-- Couleurs de texte -->
+    <color name="text_gray">#808080</color>
+    <color name="text_dark">#212121</color>
+    <color name="black">#333333</color>
+    <color name="white">#FFFFFF</color>
+</resources>
