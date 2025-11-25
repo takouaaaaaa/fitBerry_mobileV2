@@ -1,5 +1,6 @@
 package com.example.fitberry
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -61,5 +62,9 @@ class GenderSelectionActivity : AppCompatActivity() {
         radioFemale.setImageResource(if (gender == "female") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
         radioMale.setImageResource(if (gender == "male") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
         radioOther.setImageResource(if (gender == "other") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
+        btnNext.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

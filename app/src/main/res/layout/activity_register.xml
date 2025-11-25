@@ -5,68 +5,111 @@
     android:background="@drawable/bg_gradient">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="32dp"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:gravity="center_horizontal">
 
+        <!-- Titre -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Create Your\nAccount"
-            android:textColor="@color/cream"
-            android:textSize="28sp"
+            android:textColor="#F8FEDA"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="40dp"/>
 
+        <!-- Full Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textColor="#F8FEDA"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp"/>
         <EditText
             android:id="@+id/inputFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:backgroundTint="@color/cream"
-            android:textColorHint="@color/cream"
-            android:textColor="@color/cream"/>
+            android:hint="Your full name"
+            android:drawableEnd="@android:drawable/ic_menu_edit"
+            android:backgroundTint="#F8FEDA"
+            android:textColorHint="#F8FEDA"
+            android:textColor="#F8FEDA"/>
 
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Address"
+            android:textColor="#F8FEDA"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"/>
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email Address"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/cream"
-            android:textColorHint="@color/cream"
-            android:textColor="@color/cream"/>
+            android:hint="example@email.com"
+            android:inputType="textEmailAddress"
+            android:drawableEnd="@android:drawable/ic_menu_send"
+            android:backgroundTint="#F8FEDA"
+            android:textColorHint="#F8FEDA"
+            android:textColor="#F8FEDA"/>
 
+        <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="#F8FEDA"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"/>
         <EditText
             android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="********"
             android:inputType="textPassword"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/cream"
-            android:textColorHint="@color/cream"
-            android:textColor="@color/cream"/>
+            android:drawableEnd="@android:drawable/ic_menu_view"
+            android:backgroundTint="#F8FEDA"
+            android:textColorHint="#F8FEDA"
+            android:textColor="#F8FEDA"/>
 
+        <!-- Confirm Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password"
+            android:textColor="#F8FEDA"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"/>
         <EditText
             android:id="@+id/inputConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:hint="********"
             android:inputType="textPassword"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/cream"
-            android:textColorHint="@color/cream"
-            android:textColor="@color/cream"/>
+            android:drawableEnd="@android:drawable/ic_menu_view"
+            android:backgroundTint="#F8FEDA"
+            android:textColorHint="#F8FEDA"
+            android:textColor="#F8FEDA"/>
 
+        <!-- Bouton Sign Up -->
         <Button
             android:id="@+id/btnRegisterConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/lavender"
-            android:textColor="@color/dark_text"/>
+            android:backgroundTint="#CCB1F6"
+            android:textColor="#333333"
+            android:textStyle="bold"/>
+
     </LinearLayout>
 </ScrollView>

@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/img_onboarding_fruits"
+        android:layout_width="369dp"
+        android:layout_height="378dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Fruits frais flottant dans un bol"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_fruit" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingBottom="50dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
+            android:layout_marginBottom="8dp"
+            android:foregroundGravity="center"
+            android:gravity="start"
+            android:lineSpacingExtra="4dp"
+            android:text="Track Your Nutrition,\nTransform Your Health"
+            android:textColor="#333333"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70px"
+            android:layout_marginBottom="50dp"
+            android:foregroundGravity="center"
+            android:gravity="start"
+            android:text="Stay healthy by tracking every meal."
+            android:textColor="#555555"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:backgroundTint="#DCE775"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:textAllCaps="false"
+            />
+        <Button
+            android:id="@+id/btn_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:background="@android:color/transparent"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</RelativeLayout>

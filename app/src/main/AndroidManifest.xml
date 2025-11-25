@@ -22,7 +22,10 @@
         </activity>
         <activity android:name=".WeightPickerActivity" android:exported="true" />
         <activity android:name=".GoalSelectionActivity" android:exported="true" />
-        <activity android:name=".GenderSelectionActivity" />
+        <activity android:name=".GenderSelectionActivity"  android:exported="true"/>
+        <activity android:name=".WelcomeActivity" android:exported="true"/>
+        <activity android:name=".RegisterActivity" android:exported="true"/>
+        <activity android:name=".LoginActivity" android:exported="true" />
 
 
     </application>

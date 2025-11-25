@@ -15,4 +15,10 @@
     <color name="text_dark">#212121</color>
     <color name="black">#333333</color>
     <color name="white">#FFFFFF</color>
+    <color name="orange_primary">#F47552</color>
+    <color name="yellow_primary">#F8D459</color>
+    <color name="cream">#F8FEDA</color>
+    <color name="lavender">#CCB1F6</color>
+    <color name="dark_text">#333333</color>
+    <color name="lime">#CDE26D</color>
 </resources>

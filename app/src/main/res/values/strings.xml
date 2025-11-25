@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FitBerry</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="welcome">Welcome !</string>
+    <string name="fitberry">FitBerry</string>
+    <string name="app_logo">App Logo</string>
 </resources>
