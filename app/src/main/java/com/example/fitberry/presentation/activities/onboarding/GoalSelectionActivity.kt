@@ -47,11 +47,16 @@ class GoalSelectionActivity : AppCompatActivity() {
         optionMaintain.setOnClickListener { selectGoal("Maintain weight", optionMaintain, radioMaintain) }
         optionGain.setOnClickListener { selectGoal("Gain weight", optionGain, radioGain) }
 
-        // Fix: Remove the duplicate btnNext click listener inside selectGoal
         btnNext.setOnClickListener {
             if (selectedGoal != null) {
-                val intent = Intent(this, WeightPickerActivity::class.java)
-                intent.putExtra("GOAL", selectedGoal)
+                // Navigate to WelcomeProfileUpdatedActivity (final screen)
+                val intent = Intent(this, WelcomeProfileUpdatedActivity::class.java).apply {
+                    // Pass ALL collected data
+                    putExtra("AGE", this@GoalSelectionActivity.intent.getIntExtra("AGE", 25))
+                    putExtra("WEIGHT", this@GoalSelectionActivity.intent.getDoubleExtra("WEIGHT", 70.0))
+                    putExtra("GENDER", this@GoalSelectionActivity.intent.getStringExtra("GENDER"))
+                    putExtra("GOAL", selectedGoal)
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Please select a goal", Toast.LENGTH_SHORT).show()
@@ -72,8 +77,5 @@ class GoalSelectionActivity : AppCompatActivity() {
 
         selectedLayout.background = ContextCompat.getDrawable(this, R.drawable.bg_option_selected_orange)
         selectedRadio.setImageResource(R.drawable.ic_radio_checked_orange)
-
-        // REMOVED: The duplicate btnNext.setOnClickListener from here
-        // It was causing issues with navigation
     }
 }

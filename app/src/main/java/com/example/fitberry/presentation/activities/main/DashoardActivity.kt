@@ -73,28 +73,48 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun updateStats() {
         val progress = FakeRepository.getTodayProgress()
+        val user = FakeRepository.currentUser
+
+        // Use user's actual goals if available
+        val calorieGoal = user?.dailyCalories ?: progress.caloriesGoal
+        val proteinGoal = user?.proteinGoal ?: progress.proteinGoal
+        val fatsGoal = user?.fatsGoal ?: progress.fatsGoal
+        val carbsGoal = user?.carbsGoal ?: progress.carbsGoal
 
         // Calories
-        val caloriePercent = progress.getCaloriePercentage()
+        val caloriePercent = if (calorieGoal > 0) {
+            (progress.caloriesConsumed * 100 / calorieGoal).coerceAtMost(100)
+        } else 0
         progressCalories.progress = caloriePercent
-        tvCalories.text = "${progress.caloriesConsumed} Kcal\nof ${progress.caloriesGoal} kcal"
+        tvCalories.text = "${progress.caloriesConsumed} Kcal\nof ${calorieGoal} kcal"
         tvTodayCalories.text = "Today Calorie: ${progress.caloriesConsumed}"
 
         // Protein
-        progressProtein.progress = progress.getProteinPercentage()
-        tvProtein.text = "${progress.proteinConsumed}/${progress.proteinGoal}g"
+        val proteinPercent = if (proteinGoal > 0) {
+            (progress.proteinConsumed * 100 / proteinGoal).coerceAtMost(100)
+        } else 0
+        progressProtein.progress = proteinPercent
+        tvProtein.text = "${progress.proteinConsumed}/${proteinGoal}g"
 
         // Fats
-        progressFats.progress = progress.getFatsPercentage()
-        tvFats.text = "${progress.fatsConsumed}/${progress.fatsGoal}g"
+        val fatsPercent = if (fatsGoal > 0) {
+            (progress.fatsConsumed * 100 / fatsGoal).coerceAtMost(100)
+        } else 0
+        progressFats.progress = fatsPercent
+        tvFats.text = "${progress.fatsConsumed}/${fatsGoal}g"
 
         // Carbs
-        progressCarbs.progress = progress.getCarbsPercentage()
-        tvCarbs.text = "${progress.carbsConsumed}/${progress.carbsGoal}g"
+        val carbsPercent = if (carbsGoal > 0) {
+            (progress.carbsConsumed * 100 / carbsGoal).coerceAtMost(100)
+        } else 0
+        progressCarbs.progress = carbsPercent
+        tvCarbs.text = "${progress.carbsConsumed}/${carbsGoal}g"
     }
 
     private fun setupChart() {
         val weeklyProgress = FakeRepository.getWeeklyProgress()
+        val user = FakeRepository.currentUser
+        val maxCalories = user?.dailyCalories ?: 2500
 
         val entries = weeklyProgress.mapIndexed { index, day ->
             BarEntry(index.toFloat(), day.caloriesConsumed.toFloat())
@@ -130,8 +150,8 @@ class DashboardActivity : AppCompatActivity() {
             axisLeft.apply {
                 setDrawGridLines(true)
                 axisMinimum = 0f
-                axisMaximum = 2500f
-                granularity = 500f
+                axisMaximum = (maxCalories * 1.2).toFloat() // Set max based on user's goal
+                granularity = (maxCalories / 5).toFloat()
                 textSize = 12f
             }
 

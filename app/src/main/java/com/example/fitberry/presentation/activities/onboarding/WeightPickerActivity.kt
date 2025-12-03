@@ -66,11 +66,11 @@ class WeightPickerActivity : AppCompatActivity() {
 
         // --- Navigation
         btnNext.setOnClickListener {
-            // Navigate to AgePickerActivity with all data
-            val intent = Intent(this, AgePickerActivity::class.java).apply {
+            // Navigate to GenderSelectionActivity (next in flow)
+            val intent = Intent(this, GenderSelectionActivity::class.java).apply {
+                // Pass both age and weight forward
+                putExtra("AGE", this@WeightPickerActivity.intent.getIntExtra("AGE", 25))
                 putExtra("WEIGHT", selectedWeight.toDouble())
-                // Pass through existing data
-                putExtra("GOAL", this@WeightPickerActivity.intent.getStringExtra("GOAL"))
             }
             startActivity(intent)
         }

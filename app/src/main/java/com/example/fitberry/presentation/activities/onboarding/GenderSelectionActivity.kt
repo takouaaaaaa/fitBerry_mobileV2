@@ -38,9 +38,9 @@ class GenderSelectionActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener { finish() }
 
-        optionFemale.setOnClickListener { selectGender("female") }
-        optionMale.setOnClickListener { selectGender("male") }
-        optionOther.setOnClickListener { selectGender("other") }
+        optionFemale.setOnClickListener { selectGender("Female") }
+        optionMale.setOnClickListener { selectGender("Male") }
+        optionOther.setOnClickListener { selectGender("Other") }
 
         btnNext.setOnClickListener {
             if (selectedGender == null) {
@@ -48,8 +48,13 @@ class GenderSelectionActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val intent = Intent(this, AgePickerActivity::class.java)
-            intent.putExtra("GENDER", selectedGender)
+            // Navigate to GoalSelectionActivity (next in flow)
+            val intent = Intent(this, GoalSelectionActivity::class.java).apply {
+                // Pass all collected data forward
+                putExtra("AGE", this@GenderSelectionActivity.intent.getIntExtra("AGE", 25))
+                putExtra("WEIGHT", this@GenderSelectionActivity.intent.getDoubleExtra("WEIGHT", 70.0))
+                putExtra("GENDER", selectedGender)
+            }
             startActivity(intent)
         }
     }
@@ -59,18 +64,18 @@ class GenderSelectionActivity : AppCompatActivity() {
 
         // Update backgrounds
         optionFemale.setBackgroundResource(
-            if (gender == "female") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
+            if (gender == "Female") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
         )
         optionMale.setBackgroundResource(
-            if (gender == "male") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
+            if (gender == "Male") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
         )
         optionOther.setBackgroundResource(
-            if (gender == "other") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
+            if (gender == "Other") R.drawable.bg_option_selected else R.drawable.bg_option_unselected
         )
 
         // Update radio buttons
-        radioFemale.setImageResource(if (gender == "female") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
-        radioMale.setImageResource(if (gender == "male") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
-        radioOther.setImageResource(if (gender == "other") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
+        radioFemale.setImageResource(if (gender == "Female") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
+        radioMale.setImageResource(if (gender == "Male") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
+        radioOther.setImageResource(if (gender == "Other") R.drawable.ic_radio_checked_orange else R.drawable.ic_radio_unchecked)
     }
 }

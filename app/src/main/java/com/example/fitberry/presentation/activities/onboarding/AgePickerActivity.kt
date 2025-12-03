@@ -38,12 +38,11 @@ class AgePickerActivity : AppCompatActivity() {
         btnContinue.setOnClickListener {
             val selectedAge = adapter.getSelectedAge()
             if (selectedAge != null) {
-                val intent = Intent(this, WelcomeProfileUpdatedActivity::class.java).apply {
-                    // Get data from previous activities
+                // Navigate to WeightPickerActivity (next in flow)
+                val intent = Intent(this, WeightPickerActivity::class.java).apply {
+                    // Pass age forward
                     putExtra("AGE", selectedAge)
-                    putExtra("GENDER", this@AgePickerActivity.intent.getStringExtra("GENDER"))
-                    putExtra("WEIGHT", this@AgePickerActivity.intent.getDoubleExtra("WEIGHT", 70.0))
-                    putExtra("GOAL", this@AgePickerActivity.intent.getStringExtra("GOAL"))
+                    // We don't have gender or goal yet, they come later
                 }
                 startActivity(intent)
             } else {

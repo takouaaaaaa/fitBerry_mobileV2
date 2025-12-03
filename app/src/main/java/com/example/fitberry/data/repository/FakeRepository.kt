@@ -23,7 +23,7 @@ object FakeRepository {
 
     init {
         seedAdminData()
-        seedFitBerryData()
+        // Don't seed FitBerry data automatically - it will be seeded when user completes onboarding
     }
 
     private fun seedAdminData() {
@@ -59,27 +59,17 @@ object FakeRepository {
         ))
     }
 
-    private fun seedFitBerryData() {
-        // Create default FitBerry user
-        val defaultUser = UserData(
-            name = "Mehrez Hrouz",
-            email = "mehrez@fitberry.com",
-            gender = "Male",
-            age = 25,
-            weight = 70.0,
-            height = 175.0,
-            goal = "Maintain weight",
-            activityLevel = "Moderate",
-            dailyCalories = 2213,
-            proteinGoal = 90,
-            fatsGoal = 70,
-            carbsGoal = 110
-        )
+    private fun seedFitBerryData(user: UserData) {
+        // Set current user
+        currentUser = user
+        userCalorieResult = calculateUserCalorieResult(user)
 
-        currentUser = defaultUser
-        userCalorieResult = calculateUserCalorieResult(defaultUser)
+        // Clear existing data
+        meals.clear()
+        dailyProgress.clear()
+
         seedSampleMeals()
-        seedWeeklyProgress()
+        seedWeeklyProgress(user)
     }
 
     // ============ CALORIE CALCULATION ============
@@ -178,40 +168,46 @@ object FakeRepository {
 
     // ============ PROGRESS METHODS ============
 
-    private fun seedWeeklyProgress() {
+    private fun seedWeeklyProgress(user: UserData) {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // Get user's actual goals
+        val calorieGoal = user.dailyCalories
+        val proteinGoal = user.proteinGoal
+        val fatsGoal = user.fatsGoal
+        val carbsGoal = user.carbsGoal
 
         for (i in 6 downTo 0) {
             calendar.time = Date()
             calendar.add(Calendar.DAY_OF_MONTH, -i)
             val dateStr = dateFormat.format(calendar.time)
 
+            // Calculate percentages based on user's goals
             val caloriesConsumed = when (i) {
-                0 -> 1721
-                1 -> 1900
-                2 -> 2200
-                3 -> 2100
-                4 -> 1800
-                5 -> 2000
-                else -> 2100
+                0 -> (calorieGoal * 0.78).toInt() // 78% of goal
+                1 -> (calorieGoal * 0.86).toInt()
+                2 -> (calorieGoal * 0.99).toInt()
+                3 -> (calorieGoal * 0.95).toInt()
+                4 -> (calorieGoal * 0.81).toInt()
+                5 -> (calorieGoal * 0.90).toInt()
+                else -> (calorieGoal * 0.95).toInt()
             }
 
             dailyProgress.add(DailyProgress(
                 date = dateStr,
                 caloriesConsumed = caloriesConsumed,
-                caloriesGoal = 2213,
-                proteinConsumed = (70 + (i * 3)).coerceAtMost(90),
-                proteinGoal = 90,
-                fatsConsumed = (40 + (i * 2)).coerceAtMost(70),
-                fatsGoal = 70,
-                carbsConsumed = (90 + (i * 5)).coerceAtMost(110),
-                carbsGoal = 110
+                caloriesGoal = calorieGoal,
+                proteinConsumed = (proteinGoal * 0.78).toInt().coerceAtMost(proteinGoal),
+                proteinGoal = proteinGoal,
+                fatsConsumed = (fatsGoal * 0.64).toInt().coerceAtMost(fatsGoal),
+                fatsGoal = fatsGoal,
+                carbsConsumed = (carbsGoal * 0.86).toInt().coerceAtMost(carbsGoal),
+                carbsGoal = carbsGoal
             ))
         }
     }
 
-    // Change from private to internal or public
     fun updateTodayProgress(meal: Meal) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val todayStr = dateFormat.format(Date())
@@ -224,7 +220,11 @@ object FakeRepository {
                 caloriesGoal = currentUser?.dailyCalories ?: 2213,
                 proteinGoal = currentUser?.proteinGoal ?: 90,
                 fatsGoal = currentUser?.fatsGoal ?: 70,
-                carbsGoal = currentUser?.carbsGoal ?: 110
+                carbsGoal = currentUser?.carbsGoal ?: 110,
+                caloriesConsumed = 0,
+                proteinConsumed = 0,
+                fatsConsumed = 0,
+                carbsConsumed = 0
             )
             dailyProgress.add(progress)
         }
@@ -240,7 +240,6 @@ object FakeRepository {
         dailyProgress.add(updatedProgress)
     }
 
-    // Change from private to internal or public
     fun updateProgressAfterMealDeletion(meal: Meal) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val mealDateStr = dateFormat.format(Date(meal.date))
@@ -267,7 +266,11 @@ object FakeRepository {
             caloriesGoal = currentUser?.dailyCalories ?: 2213,
             proteinGoal = currentUser?.proteinGoal ?: 90,
             fatsGoal = currentUser?.fatsGoal ?: 70,
-            carbsGoal = currentUser?.carbsGoal ?: 110
+            carbsGoal = currentUser?.carbsGoal ?: 110,
+            caloriesConsumed = 0,
+            proteinConsumed = 0,
+            fatsConsumed = 0,
+            carbsConsumed = 0
         )
     }
 
@@ -280,15 +283,26 @@ object FakeRepository {
     fun saveUser(user: UserData) {
         currentUser = user
         userCalorieResult = calculateUserCalorieResult(user)
+        // Seed data with the new user
+        seedFitBerryData(user)
     }
 
     fun updateUserProfile(updatedUser: UserData) {
         currentUser = updatedUser
         userCalorieResult = calculateUserCalorieResult(updatedUser)
-    }
 
-    // REMOVED: fun getCurrentUser(): UserData? = currentUser
-    // REMOVED: fun getUserCalorieResult(): CalorieResult? = userCalorieResult
+        // Update existing daily progress with new goals
+        dailyProgress.forEach { progress ->
+            val updatedProgress = progress.copy(
+                caloriesGoal = updatedUser.dailyCalories,
+                proteinGoal = updatedUser.proteinGoal,
+                fatsGoal = updatedUser.fatsGoal,
+                carbsGoal = updatedUser.carbsGoal
+            )
+            dailyProgress.remove(progress)
+            dailyProgress.add(updatedProgress)
+        }
+    }
 
     // ============ ADMIN USER METHODS ============
 
@@ -354,8 +368,19 @@ object FakeRepository {
 
     fun getDailyProgressPercentage(): Int {
         val progress = getTodayProgress()
-        return if (progress.caloriesGoal > 0) {
-            (progress.caloriesConsumed * 100 / progress.caloriesGoal).coerceIn(0, 100)
+        val goal = currentUser?.dailyCalories ?: progress.caloriesGoal
+        return if (goal > 0) {
+            (progress.caloriesConsumed * 100 / goal).coerceIn(0, 100)
         } else 0
+    }
+
+    // Helper function to check if user exists
+    fun hasUser(): Boolean {
+        return currentUser != null
+    }
+
+    // Helper function to get user's name
+    fun getUserName(): String {
+        return currentUser?.name ?: "User"
     }
 }
