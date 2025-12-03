@@ -5,4 +5,10 @@
     <string name="welcome">Welcome !</string>
     <string name="fitberry">FitBerry</string>
     <string name="app_logo">App Logo</string>
+
+    <string name="users">Users</string>
+    <string name="articles">Articles</string>
+    <string name="logout">Logout</string>
+    <string name="add_user">Add User</string>
+    <string name="save">Save</string>
 </resources>

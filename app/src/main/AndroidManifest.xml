@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.fitberry">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,22 +14,63 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitBerry">
+
+        <!-- Launcher Activity -->
         <activity
-            android:name=".AgePickerActivity"
+            android:name=".presentation.activities.onboarding.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".WeightPickerActivity" android:exported="true" />
-        <activity android:name=".GoalSelectionActivity" android:exported="true" />
-        <activity android:name=".GenderSelectionActivity"  android:exported="true"/>
-        <activity android:name=".WelcomeActivity" android:exported="true"/>
-        <activity android:name=".RegisterActivity" android:exported="true"/>
-        <activity android:name=".LoginActivity" android:exported="true" />
 
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".presentation.activities.main.DashboardActivity"
+            android:exported="true" />
+
+        <!-- Onboarding Activities -->
+        <activity
+            android:name=".presentation.activities.onboarding.GenderSelectionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.activities.onboarding.AgePickerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.activities.onboarding.WeightPickerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.activities.onboarding.GoalSelectionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.activities.onboarding.WelcomeProfileUpdatedActivity"
+            android:exported="true" />
+
+        <!-- Auth Activities -->
+        <activity
+            android:name=".presentation.activities.auth.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.activities.auth.RegisterActivity"
+            android:exported="true" />
+
+        <!-- Admin Panel Activities -->
+        <activity
+            android:name=".presentation.viewmodels.admindashboard.AdminDashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.viewmodels.admindashboard.UsersListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.viewmodels.admindashboard.UserFormActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.viewmodels.admindashboard.ArticleListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.viewmodels.admindashboard.ArticleFormActivity"
+            android:exported="true" />
 
     </application>
 

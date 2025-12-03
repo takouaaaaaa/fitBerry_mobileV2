@@ -7,7 +7,7 @@
     android:gravity="center"
     android:padding="32dp"
     android:background="@drawable/bg_gradient"
-    tools:context=".WelcomeActivity">
+    tools:context=".presentation.activities.onboarding.WelcomeActivity">
 
     <ImageView
         android:layout_width="140dp"
